@@ -59,8 +59,7 @@ This program was built using _`Microsoft .NET SDK 5.0.401`_, and may not be comp
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* _No known issues_
 
 ## License
 

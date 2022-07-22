@@ -1,0 +1,76 @@
+@{
+  Layout = "_Layout";
+}
+@using GoFish.Models;
+@{
+  Game game = Model.Item1;
+  Player currPlayer = Model.Item1.currentTurnPlayer();
+  Player otherPlayer = null;
+  string otherPlayerName = Model.Item3;
+
+  for (int i = 0; i < game.Players.Count; i++)
+  {
+    if (otherPlayerName == game.Players[i].Name)
+    {
+      otherPlayer = game.Players[i];
+    }
+  }
+
+  Card card = currPlayer.Hand[Model.Item2];
+  Card otherCard = null;
+  if (otherPlayer.CheckHand(card))
+  {
+    otherCard = otherPlayer.GetCardOfSameColor(card, true);
+  }
+  bool success = game.AskOtherPlayer(currPlayer, otherPlayer, card);
+}
+
+@if (success)
+{
+  <h4>Successfully got @otherCard</h4>
+  <h5>My card was @card</h5>
+  <ul>
+    @for (int i = 0; i < @currPlayer.HandCount(); i++)
+    {
+      <li>@currPlayer.Hand[i]</li>
+    }
+  </ul>
+  @* <ul>
+    @for (int i = 0; i < @otherPlayer.HandCount(); i++)
+    {
+    <li>@otherPlayer.Hand[i]</li>
+    }
+    </ul> *@
+  <a href="/game/@Model.Item2/@Model.Item3/@success">Go Again</a>
+}
+else
+{
+  <h4>@otherPlayer.Name does not have the pair for @card</h4>
+  Card playerDraw = currPlayer.PlayerDraw(game.GameDeck);
+  @if (playerDraw != null)
+  {
+    <h5>You drew @playerDraw from deck</h5>
+    if (currPlayer.GetCardOfSameColor(playerDraw, true) != null)
+    {
+      <h6>@playerDraw made a pair with @currPlayer.GetCardOfSameColor(playerDraw, true)</h6>
+      @currPlayer.TakeCard("hand", playerDraw)
+      ;
+    }
+    else
+    {
+      <h6>@playerDraw has been added to your hand! @currPlayer.GetCardOfSameColor(playerDraw, true)</h6>
+    }
+    <p>Your current hand is:</p>
+    <ul>
+      @for (int i = 0; i < @currPlayer.HandCount(); i++)
+      {
+        <li>@currPlayer.Hand[i]</li>
+      }
+    </ul>
+  }
+  else
+  {
+    <h5>There are no cards left to draw.</h5>
+  }
+  <a href="/game/@Model.Item2/@Model.Item3/@success">Next Turn</a>
+}

@@ -1,3 +1,37 @@
 @{
   Layout = "_Layout";
 }
+@using GoFish.Models;
+@if (@Model.Item2 == null)
+{
+  <h3>Game in progress...</h3>
+  <ul>
+    @foreach (Player player in @Model.Item1.Players)
+    {
+      <li>@player.Name has @player.HandCount() cards in their hand and they have @player.GetNumOfPairs() pairs.</li>
+    }
+  </ul>
+  <h4>Current Turn: @Model.Item1.ShowCurrTurnNum()</h4>
+
+  Player currPlayer = @Model.Item1.currentTurnPlayer();
+
+  <h4>Current Player: @currPlayer.Name</h4>
+
+  <h5>@currPlayer.Name's Cards</h5>
+  <ul>
+    @for (int i = 0; i < @currPlayer.HandCount(); i++)
+    {
+      <li>
+        <a href="/game/@i">
+          @currPlayer.Hand[i]</a>
+      </li>
+    }
+  </ul>
+
+  <div class="container">
+  </div>
+}
+else
+{
+  <h3>Winner is @Model.Item2.Name with @Model.Item2.GetNumOfPairs() pairs</h3>
+}

@@ -28,7 +28,7 @@ The application allows 2 users to play Go Fish. Players recieve a hand of 5 card
 
     ``cd GoFish.Solution``
 
-* You should now have a folder `GoFish.Solution` with the following structure.
+* You should now have a folder `GoFish.Solution` with a following structure.
     <pre>GoFish.Solution
     ├── GoFish
     └── GoFish.Tests</pre>

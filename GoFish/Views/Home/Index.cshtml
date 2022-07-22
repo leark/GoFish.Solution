@@ -1,3 +1,12 @@
 @{
   Layout = "_Layout";
 }
+<div class="container">
+  <h1>Welcome to Go Fish!</h1>
+
+  <form action="/game" method="post">
+    <label for="numOfPlayers">Number of Players</label>
+    <input name="numOfPlayers" id="numOfPlayers" type="number" min="2" max="10" required>
+    <button>Click Here to Start</button>
+  </form>
+</div>

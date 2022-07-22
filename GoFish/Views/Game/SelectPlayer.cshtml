@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+@using GoFish.Models;
+<h3>This is the @Model.Item1.currentTurnPlayer().Name page</h3>
+
+<h4>Ask other players if they have a card similar to @Model.Item1.currentTurnPlayer().Hand[Model.Item2]</h4>
+<ul>
+  @foreach (Player player in @Model.Item1.Players)
+  {
+    if (player.Name != Model.Item1.currentTurnPlayer().Name)
+    {
+      <li>
+        <a href="/game/@player.Name/@Model.Item2">@player.Name</a>
+      </li>
+    }
+  }
+</ul>

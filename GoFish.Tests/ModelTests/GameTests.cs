@@ -10,7 +10,7 @@ namespace GoFish.Tests
   {
     public void Dispose()
     {
-      Item.ClearAll();
+      // Item.ClearAll();
     }
 
     // [TestMethod]
